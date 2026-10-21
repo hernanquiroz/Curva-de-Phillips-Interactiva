@@ -15,10 +15,10 @@ st.set_page_config(
 # ──────────────────────────────────────────────────────────────
 # Título y descripción
 # ─────────────────────────────────────────────────────────────
-st.title("📉 Curva de Phillips (Interactiva)")
+st.title(" Curva de Phillips (Interactiva)")
 st.markdown("""
 Analiza la relación inversa entre **inflación (π)** y **desempleo (u)**.
--  **Curva verde fija**: Curva de Phillips original
+- 🟢 **Curva verde fija**: Curva de Phillips original
 - ⚫ **Punto negro**: Se desplaza a lo largo de la curva original
 - 🔵 **Curva punteada**: Curva duplicada desplazable en diagonal
 """)
@@ -27,7 +27,7 @@ Analiza la relación inversa entre **inflación (π)** y **desempleo (u)**.
 # Parámetros de la Curva de Phillips
 # Forma: π = a/u + b  (hiperbólica, como en la imagen)
 # ──────────────────────────────────────────────────────────────
-st.sidebar.header("️ Parámetros de la Curva")
+st.sidebar.header("⚙️ Parámetros de la Curva")
 
 a = st.sidebar.number_input("Parámetro 'a' (forma de la curva)", value=7.2, step=0.1)
 b = st.sidebar.number_input("Parámetro 'b' (inflación base)", value=1.2, step=0.1)
@@ -36,8 +36,8 @@ st.sidebar.markdown("---")
 
 # ───────────────────────────────────────────────────────────────
 # Control del punto negro sobre la curva fija
-# ──────────────────────────────────────────────────────────────
-st.sidebar.header(" Punto de Equilibrio (sobre curva fija)")
+# ─────────────────────────────────────────────────────────────
+st.sidebar.header("⚫ Punto de Equilibrio (sobre curva fija)")
 
 u_punto = st.sidebar.slider(
     "Tasa de desempleo del punto (u)",
@@ -55,7 +55,7 @@ st.sidebar.markdown("---")
 
 # ───────────────────────────────────────────────────────────────
 # Desplazamiento de la curva duplicada (diagonal)
-# ──────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────
 st.sidebar.header("🔵 Desplazamiento de Curva Duplicada")
 
 delta_u = st.sidebar.slider(
@@ -79,7 +79,7 @@ delta_pi = st.sidebar.slider(
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Leyenda de colores:**")
 st.sidebar.markdown("🟢 Verde = Curva original (fija)")
-st.sidebar.markdown("🔵 Azul punteada = Curva desplazada")
+st.sidebar.markdown(" Azul punteada = Curva desplazada")
 st.sidebar.markdown("⚫ Negro = Punto sobre curva original")
 
 # ───────────────────────────────────────────────────────────────
@@ -91,14 +91,13 @@ u = np.linspace(1, 9, 200)
 pi_original = a / u + b
 
 # Curva de Phillips duplicada (desplazada)
-# Desplazamiento: u' = u - delta_u, π' = π + delta_pi
 u_desplazada = u + delta_u
 pi_desplazada = a / u + b + delta_pi
 
 # ──────────────────────────────────────────────────────────────
 # Mostrar métricas
 # ──────────────────────────────────────────────────────────────
-st.markdown("###  Punto sobre la Curva Original")
+st.markdown("### 📊 Punto sobre la Curva Original")
 col1, col2 = st.columns(2)
 
 with col1:
@@ -125,24 +124,23 @@ ax.grid(True, linestyle='--', alpha=0.6)
 ax.set_axisbelow(True)
 
 # Curva de Phillips original (verde, fija)
-ax.plot(u, pi_original, 'g-', linewidth=3, 
+ax.plot(u, pi_original, 'g-', linewidth=3,
         label=f'Curva de Phillips Original (πe={b:.1f})')
 
 # Curva de Phillips duplicada (azul punteada, desplazada)
-# Filtrar valores válidos (u > 0)
 mask = u_desplazada > 0
-ax.plot(u_desplazada[mask], pi_desplazada[mask], 
-        'b--', linewidth=2.5, 
+ax.plot(u_desplazada[mask], pi_desplazada[mask],
+        'b--', linewidth=2.5,
         label=f'Curva Desplazada (Δu={delta_u:+.1f}, Δπ={delta_pi:+.1f})')
 
 # Punto negro sobre la curva original
-ax.plot(u_punto, pi_punto, 'ko', markersize=12, 
-        markeredgecolor='black', markerfacecolor='black', 
+ax.plot(u_punto, pi_punto, 'ko', markersize=12,
+        markeredgecolor='black', markerfacecolor='black',
         markeredgewidth=2, zorder=10)
 
 # Etiqueta del punto
-ax.annotate(f'Punto (u={u_punto:.1f}, π={pi_punto:.2f})', 
-            xy=(u_punto, pi_punto), 
+ax.annotate(f'Punto (u={u_punto:.1f}, π={pi_punto:.2f})',
+            xy=(u_punto, pi_punto),
             xytext=(u_punto + 0.8, pi_punto + 0.8),
             fontsize=10, fontweight='bold',
             arrowprops=dict(arrowstyle='->', color='black', lw=1.5))
@@ -156,7 +154,7 @@ ax.set_xlim(0, 10)
 ax.set_ylim(0, 10)
 ax.set_xlabel('Tasa de Desempleo (u)', fontsize=13, fontweight='bold')
 ax.set_ylabel('Tasa de Inflación (π)', fontsize=13, fontweight='bold')
-ax.set_title('Curva de Phillips (Interactiva)', 
+ax.set_title('Curva de Phillips (Interactiva)',
              fontsize=15, fontweight='bold', pad=20)
 
 # Leyenda
@@ -182,17 +180,17 @@ st.markdown("### 📚 Interpretación Económica")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("**🟢 Curva Original (Fija)**")
+    st.markdown("** Curva Original (Fija)**")
     st.markdown(f"""
     - Ecuación: **π = {a}/u + {b}**
     - Representa la relación de corto plazo entre inflación y desempleo
     - El **punto negro** se mueve a lo largo de esta curva
     - **Inflación esperada (πe)** = {b:.1f}%
     """)
-    
+
     if u_punto < 4:
         st.success(f"""
-        **📈 Baja desempleo ({u_punto:.1f}%)**
+        **📈 Bajo desempleo ({u_punto:.1f}%)**
         - Alta inflación: {pi_punto:.2f}%
         - Economía sobrecalentada
         """)
@@ -213,10 +211,10 @@ with col2:
     st.markdown(f"""
     - Desplazamiento: Δu = {delta_u:+.1f}, Δπ = {delta_pi:+.1f}
     """)
-    
+
     if delta_pi > 0:
         st.error(f"""
-        **️ Desplazamiento hacia arriba**
+        **⚠️ Desplazamiento hacia arriba**
         - Aumento de inflación esperada
         - Shock de oferta negativo
         - La curva se desplaza **arriba/derecha**
@@ -230,7 +228,7 @@ with col2:
         """)
     else:
         st.info("➡️ Sin desplazamiento vertical")
-    
+
     if delta_u > 0:
         st.markdown(f"**→ Desplazamiento derecho de {delta_u:+.1f}**")
     elif delta_u < 0:
@@ -240,9 +238,9 @@ with col2:
 
 # ───────────────────────────────────────────────────────────────
 # Escenarios predefinidos
-# ──────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────
 st.markdown("---")
-st.markdown("### 🎯 Escenarios de Política Económica")
+st.markdown("###  Escenarios de Política Económica")
 
 scenario = st.selectbox(
     "Selecciona un escenario:",
@@ -260,29 +258,29 @@ if scenario == "1. Aumento de Inflación Esperada":
     st.markdown("- La curva se desplaza **hacia arriba** (Δπ = +2.0)")
     st.markdown("- Para mismo desempleo, mayor inflación")
     st.markdown("- **Ejemplo:** Indexación salarial")
-    
+
 elif scenario == "2. Disminución de Inflación Esperada":
-    st.success(" **Disminución de πe:** Credibilidad del banco central")
+    st.success("✅ **Disminución de πe:** Credibilidad del banco central")
     st.markdown("- La curva se desplaza **hacia abajo** (Δπ = -2.0)")
     st.markdown("- Para mismo desempleo, menor inflación")
     st.markdown("- **Ejemplo:** Política monetaria creíble")
-    
+
 elif scenario == "3. Shock de Oferta Negativo":
-    st.error("⚠️ **Shock negativo:** ↑ precios del petróleo")
+    st.error("️ **Shock negativo:** ↑ precios del petróleo")
     st.markdown("- La curva se desplaza **arriba/derecha** (Δu = +1.5, Δπ = +2.0)")
     st.markdown("- **Estanflación:** ↑ inflación y ↑ desempleo")
-    
+
 elif scenario == "4. Shock de Oferta Positivo":
     st.success("✅ **Shock positivo:** Avance tecnológico")
     st.markdown("- La curva se desplaza **abajo/izquierda** (Δu = -1.5, Δπ = -2.0)")
     st.markdown("- **Mejor escenario:** ↓ inflación y ↓ desempleo")
-    
+
 elif scenario == "5. Política Contractiva (↑ desempleo)":
     st.warning("📉 **Política contractiva:** Reducir inflación")
     st.markdown("- Mover el punto negro hacia la **derecha** (↑u)")
     st.markdown("- Ejemplo: u = 7.0 → π baja")
     st.markdown("- **Costo:** Mayor desempleo")
-    
+
 elif scenario == "6. Política Expansiva (↓ desempleo)":
     st.info("📈 **Política expansiva:** Reducir desempleo")
     st.markdown("- Mover el punto negro hacia la **izquierda** (↓u)")
@@ -313,7 +311,7 @@ st.markdown(f"""
 # Explicación del trade-off
 # ──────────────────────────────────────────────────────────────
 st.markdown("---")
-st.markdown("###  Trade-off Inflación-Desempleo")
+st.markdown("### ⚖️ Trade-off Inflación-Desempleo")
 
 col1, col2, col3 = st.columns(3)
 
@@ -333,4 +331,4 @@ with col3:
     st.markdown("**📈 Alto desempleo**")
     st.markdown("u > 6%")
     st.markdown("π baja")
-    st.markdown"Recesión económica")
+    st.markdown("Recesión económica")
